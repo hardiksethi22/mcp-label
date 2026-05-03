@@ -1,5 +1,10 @@
 # MCP Label
 
+[![npm version](https://img.shields.io/npm/v/@mcp-label/cli.svg)](https://www.npmjs.com/package/@mcp-label/cli)
+[![npm version](https://img.shields.io/npm/v/@mcp-label/core.svg?label=core)](https://www.npmjs.com/package/@mcp-label/core)
+[![npm version](https://img.shields.io/npm/v/@mcp-label/rules.svg?label=rules)](https://www.npmjs.com/package/@mcp-label/rules)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A privacy, safety, and permissions label for Model Context Protocol servers.
 
 `mcp-label` helps developers understand what an MCP server can **read, write, execute, access, or expose** — before they install it.
@@ -37,38 +42,58 @@ A developer looking at an MCP config may not immediately know:
 
 ## Quick Start
 
+### Install
+
 ```bash
-npx mcp-label scan
+# Install globally
+npm install -g @mcp-label/cli
+
+# Or use directly with npx (no install needed)
+npx @mcp-label/cli scan
+```
+
+### Published Packages
+
+| Package | Version | Description |
+|---------|---------|-------------|
+| [`@mcp-label/cli`](https://www.npmjs.com/package/@mcp-label/cli) | ![npm](https://img.shields.io/npm/v/@mcp-label/cli.svg) | Command-line interface |
+| [`@mcp-label/core`](https://www.npmjs.com/package/@mcp-label/core) | ![npm](https://img.shields.io/npm/v/@mcp-label/core.svg) | Core analysis, scoring, exporters |
+| [`@mcp-label/rules`](https://www.npmjs.com/package/@mcp-label/rules) | ![npm](https://img.shields.io/npm/v/@mcp-label/rules.svg) | Rule packs (base, OWASP, enterprise) |
+
+### Usage
+
+```bash
+npx @mcp-label/cli scan
 ```
 
 Scan a specific config:
 
 ```bash
-npx mcp-label scan --config ./.cursor/mcp.json
+npx @mcp-label/cli scan --config ./.cursor/mcp.json
 ```
 
 Write a JSON report:
 
 ```bash
-npx mcp-label scan --config ./.cursor/mcp.json --output mcp-label.json
+npx @mcp-label/cli scan --config ./.cursor/mcp.json --output mcp-label.json
 ```
 
 Generate a Markdown report:
 
 ```bash
-npx mcp-label export --input mcp-label.json --format markdown --output MCP_LABEL.md
+npx @mcp-label/cli export --input mcp-label.json --format markdown --output MCP_LABEL.md
 ```
 
 Generate an SVG label:
 
 ```bash
-npx mcp-label export --input mcp-label.json --format svg --output mcp-label.svg
+npx @mcp-label/cli export --input mcp-label.json --format svg --output mcp-label.svg
 ```
 
 Use in CI:
 
 ```bash
-npx mcp-label scan --config ./.cursor/mcp.json --fail-on high
+npx @mcp-label/cli scan --config ./.cursor/mcp.json --fail-on high
 ```
 
 ---
@@ -258,7 +283,7 @@ jobs:
           node-version: 20
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: npx mcp-label scan --config ./.cursor/mcp.json --fail-on high
+      - run: npx @mcp-label/cli scan --config ./.cursor/mcp.json --fail-on high
 ```
 
 ---
@@ -299,7 +324,7 @@ Runtime inspection (`mcp-label inspect`) is opt-in and may start servers. Use on
 ## Development
 
 ```bash
-git clone https://github.com/mcp-label/mcp-label.git
+git clone https://github.com/hardiksethi22/mcp-label.git
 cd mcp-label
 pnpm install
 pnpm build

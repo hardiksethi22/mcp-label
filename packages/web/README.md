@@ -1,6 +1,6 @@
 # @mcp-label/web
 
-Web app for [mcp-label](https://github.com/mcp-label/mcp-label) — a privacy, safety, and permissions label for MCP servers.
+Web app for [mcp-label](https://github.com/hardiksethi22/mcp-label) — a privacy, safety, and permissions label for MCP servers.
 
 > ⚠️ **This package is a scaffold.** The web app is not yet implemented.
 

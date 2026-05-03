@@ -19,6 +19,14 @@
   "packageManager": "pnpm@9.15.4",
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hardiksethi22/mcp-label.git"
+  },
+  "homepage": "https://github.com/hardiksethi22/mcp-label#readme",
+  "bugs": {
+    "url": "https://github.com/hardiksethi22/mcp-label/issues"
+  },
   "devDependencies": {
     "@types/node": "^20.17.0",
     "eslint": "^9.15.0",

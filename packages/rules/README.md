@@ -1,6 +1,6 @@
 # @mcp-label/rules
 
-Rule packs for [mcp-label](https://github.com/mcp-label/mcp-label) — a privacy, safety, and permissions label for MCP servers.
+Rule packs for [mcp-label](https://github.com/hardiksethi22/mcp-label) — a privacy, safety, and permissions label for MCP servers.
 
 ## What's inside
 

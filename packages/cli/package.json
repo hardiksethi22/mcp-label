@@ -7,6 +7,9 @@
     "mcp-label": "dist/cli.js"
   },
   "main": "dist/cli.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsx src/cli.ts",
@@ -25,5 +28,15 @@
     "typescript": "^5.7.0",
     "vitest": "^2.1.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hardiksethi22/mcp-label.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/hardiksethi22/mcp-label#readme",
+  "bugs": {
+    "url": "https://github.com/hardiksethi22/mcp-label/issues"
+  },
+  "keywords": ["mcp", "model-context-protocol", "security", "permissions", "label", "cli"]
 }

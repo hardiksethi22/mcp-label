@@ -1,6 +1,6 @@
 # @mcp-label/cli
 
-Command-line interface for [mcp-label](https://github.com/mcp-label/mcp-label) — a privacy, safety, and permissions label for MCP servers.
+Command-line interface for [mcp-label](https://github.com/hardiksethi22/mcp-label) — a privacy, safety, and permissions label for MCP servers.
 
 ## Install
 
@@ -107,6 +107,10 @@ github (known.github-mcp)
 - Default scan is **static only** — no MCP servers are started or contacted
 - Secret values are **never printed** — only variable names are shown
 - No telemetry, no cloud calls
+
+## Docs
+
+- [Publishing to npm](../../docs/publishing.md) — Full publish workflow and CI/CD setup
 
 ## License
 

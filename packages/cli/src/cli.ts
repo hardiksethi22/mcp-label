@@ -15,7 +15,7 @@ const program = new Command();
 program
   .name('mcp-label')
   .description('A privacy, safety, and permissions label for MCP servers.')
-  .version('0.1.0');
+  .version('0.1.3');
 
 program.addCommand(scanCommand);
 program.addCommand(exportCommand);

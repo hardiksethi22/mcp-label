@@ -1,6 +1,6 @@
 # @mcp-label/vscode-extension
 
-VS Code extension for [mcp-label](https://github.com/mcp-label/mcp-label) — a privacy, safety, and permissions label for MCP servers.
+VS Code extension for [mcp-label](https://github.com/hardiksethi22/mcp-label) — a privacy, safety, and permissions label for MCP servers.
 
 > ⚠️ **This package is a scaffold.** The VS Code extension is not yet implemented.
 

@@ -1,8 +1,8 @@
 # @mcp-label/inspector
 
-Runtime inspection module for [mcp-label](https://github.com/mcp-label/mcp-label) — a privacy, safety, and permissions label for MCP servers.
+Runtime inspection module for [mcp-label](https://github.com/hardiksethi22/mcp-label) — a privacy, safety, and permissions label for MCP servers.
 
-> ⚠️ **This package is a scaffold.** Runtime inspection is not yet fully implemented. See the [roadmap](https://github.com/mcp-label/mcp-label/blob/main/docs/roadmap.md) for details.
+> ⚠️ **This package is a scaffold.** Runtime inspection is not yet fully implemented. See the [roadmap](https://github.com/hardiksethi22/mcp-label/blob/main/docs/roadmap.md) for details.
 
 ## Purpose
 

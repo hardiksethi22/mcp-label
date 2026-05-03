@@ -1,6 +1,6 @@
 # @mcp-label/github-action
 
-GitHub Action for [mcp-label](https://github.com/mcp-label/mcp-label) — a privacy, safety, and permissions label for MCP servers.
+GitHub Action for [mcp-label](https://github.com/hardiksethi22/mcp-label) — a privacy, safety, and permissions label for MCP servers.
 
 > ⚠️ **This package is a scaffold.** The GitHub Action is not yet fully implemented.
 
