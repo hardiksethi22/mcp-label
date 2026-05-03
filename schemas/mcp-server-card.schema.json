@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCP Server Card",
+  "description": "Public-facing server card for MCP server registry (future).",
+  "type": "object",
+  "required": ["name", "version", "permissions"],
+  "properties": {
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "permissions": { "type": "array", "items": { "type": "string" } },
+    "grade": { "type": "string", "enum": ["A", "B", "C", "D", "F"] },
+    "risk": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+  }
+}
+

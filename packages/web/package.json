@@ -1,0 +1,11 @@
+{
+  "name": "@mcp-label/web",
+  "version": "0.1.3",
+  "description": "Web app for mcp-label (future)",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Web app not yet implemented'",
+    "test": "echo 'No tests yet'"
+  },
+  "license": "MIT"
+}

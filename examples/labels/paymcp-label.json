@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-05-03T05:53:15.468Z",
+  "source": {
+    "configPaths": [
+      "./examples/paymcp.mcp.json"
+    ],
+    "discovered": false,
+    "staticOnly": true
+  },
+  "summary": {
+    "serverCount": 4,
+    "overallGrade": "F",
+    "overallRisk": "critical",
+    "highestRisk": "critical",
+    "totalFindings": 23,
+    "topConcerns": [
+      "payments.charge",
+      "secrets.env",
+      "repo.write",
+      "payments.read",
+      "database.mutate"
+    ]
+  },
+  "servers": [
+    {
+      "name": "paymcp-demo",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/blustAI/python-paymcp-server-demo",
+        "server"
+      ],
+      "envVars": [
+        "OPENAI_API_KEY",
+        "STRIPE_SECRET_KEY",
+        "WALLEOT_API_KEY"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-openai_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: OPENAI_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-stripe_secret_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: STRIPE_SECRET_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-walleot_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: WALLEOT_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "repo-read",
+          "permission": "repo.read",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Detected GitHub MCP server",
+          "explanation": "The server can read repository data."
+        },
+        {
+          "id": "repo-write",
+          "permission": "repo.write",
+          "level": "high",
+          "confidence": "medium",
+          "evidence": "Token may permit write operations",
+          "explanation": "The server may be able to write to repositories if the token has write scopes.",
+          "recommendation": "Use a fine-grained GitHub token and prefer read-only scopes unless write actions are required."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "medium",
+          "evidence": "Payment service signal detected",
+          "explanation": "The server may access payment data."
+        },
+        {
+          "id": "payments-charge",
+          "permission": "payments.charge",
+          "level": "critical",
+          "confidence": "medium",
+          "evidence": "Payment charge capability detected",
+          "explanation": "The server may initiate financial transactions.",
+          "recommendation": "Use restricted API keys and enable webhook verification."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "uvx-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "explanation": "The uvx package is not pinned to a specific version.",
+          "recommendation": "Pin package versions (e.g., package==1.2.3)."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Use a fine-grained GitHub token and prefer read-only scopes unless write actions are required.",
+        "Use restricted API keys and enable webhook verification.",
+        "Pin package versions (e.g., package==1.2.3)."
+      ],
+      "saferConfigSuggestions": [
+        {
+          "id": "use-fine-grained-token",
+          "title": "Use a fine-grained GitHub token",
+          "explanation": "Fine-grained personal access tokens allow scoping permissions to specific repositories and actions.",
+          "confidence": "medium"
+        }
+      ],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    },
+    {
+      "name": "paymcp-stripe-server",
+      "command": "python",
+      "args": [
+        "server.py"
+      ],
+      "envVars": [
+        "STRIPE_API_KEY",
+        "STRIPE_SECRET_KEY",
+        "REDIS_URL"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-stripe_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: STRIPE_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-stripe_secret_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: STRIPE_SECRET_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "database-query",
+          "permission": "database.query",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Database service signal detected",
+          "explanation": "The server can query a database."
+        },
+        {
+          "id": "database-mutate",
+          "permission": "database.mutate",
+          "level": "high",
+          "confidence": "low",
+          "evidence": "Database access without read-only signal",
+          "explanation": "The server may be able to modify database data.",
+          "recommendation": "Use read-only database credentials where possible."
+        },
+        {
+          "id": "secrets-db-redis_url",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Database credential: REDIS_URL",
+          "explanation": "The server receives database credentials through its environment.",
+          "recommendation": "Use the least-privileged database user and rotate credentials regularly."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "medium",
+          "evidence": "Payment service signal detected",
+          "explanation": "The server may access payment data."
+        },
+        {
+          "id": "payments-charge",
+          "permission": "payments.charge",
+          "level": "critical",
+          "confidence": "medium",
+          "evidence": "Payment charge capability detected",
+          "explanation": "The server may initiate financial transactions.",
+          "recommendation": "Use restricted API keys and enable webhook verification."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "local-script",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Script execution: python server.py",
+          "explanation": "The server runs a local script file.",
+          "recommendation": "Review the script contents before running."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Use read-only database credentials where possible.",
+        "Use the least-privileged database user and rotate credentials regularly.",
+        "Use restricted API keys and enable webhook verification.",
+        "Review the script contents before running."
+      ],
+      "saferConfigSuggestions": [],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    },
+    {
+      "name": "paymcp-x402",
+      "command": "uvx",
+      "args": [
+        "paymcp-x402-server"
+      ],
+      "envVars": [
+        "X402_PAY_TO_ADDRESS",
+        "OPENAI_API_KEY"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-openai_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: OPENAI_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "uvx-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "paymcp-x402-server",
+          "explanation": "The uvx package is not pinned to a specific version.",
+          "recommendation": "Pin package versions (e.g., package==1.2.3)."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Pin package versions (e.g., package==1.2.3)."
+      ],
+      "saferConfigSuggestions": [],
+      "score": 65,
+      "grade": "C",
+      "risk": "high"
+    },
+    {
+      "name": "paymcp-subscription-demo",
+      "command": "uv",
+      "args": [
+        "run",
+        "mcp",
+        "install",
+        "server.py",
+        "--with",
+        "openai",
+        "--with",
+        "paymcp",
+        "--with",
+        "requests",
+        "--with",
+        "Pillow"
+      ],
+      "envVars": [
+        "STRIPE_SECRET_KEY",
+        "OPENAI_API_KEY"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-stripe_secret_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: STRIPE_SECRET_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-openai_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable: OPENAI_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "medium",
+          "evidence": "Payment service signal detected",
+          "explanation": "The server may access payment data."
+        },
+        {
+          "id": "payments-charge",
+          "permission": "payments.charge",
+          "level": "critical",
+          "confidence": "medium",
+          "evidence": "Payment charge capability detected",
+          "explanation": "The server may initiate financial transactions.",
+          "recommendation": "Use restricted API keys and enable webhook verification."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "local-script",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Script execution: uv run",
+          "explanation": "The server runs a local script file.",
+          "recommendation": "Review the script contents before running."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Use restricted API keys and enable webhook verification.",
+        "Review the script contents before running."
+      ],
+      "saferConfigSuggestions": [],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    }
+  ]
+}

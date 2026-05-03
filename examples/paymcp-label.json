@@ -1,0 +1,494 @@
+{
+  "schemaVersion": "0.1",
+  "generatedAt": "2026-05-03T06:17:21.991Z",
+  "source": {
+    "configPaths": [
+      "examples/paymcp.mcp.json"
+    ],
+    "discovered": false,
+    "staticOnly": true
+  },
+  "summary": {
+    "serverCount": 4,
+    "overallGrade": "F",
+    "overallRisk": "critical",
+    "highestRisk": "critical",
+    "totalFindings": 39,
+    "topConcerns": [
+      "payments.charge x3",
+      "secrets.env x8",
+      "payments.read x4",
+      "remote-git-unpinned x2",
+      "uvx-remote-source"
+    ]
+  },
+  "servers": [
+    {
+      "name": "paymcp-demo",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/blustAI/python-paymcp-server-demo",
+        "server"
+      ],
+      "envVars": [
+        "OPENAI_API_KEY",
+        "STRIPE_SECRET_KEY",
+        "WALLEOT_API_KEY"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-openai_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: OPENAI_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-stripe_secret_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: STRIPE_SECRET_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-walleot_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: WALLEOT_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Stripe secret key detected in environment",
+          "explanation": "The server has access to payment data via Stripe credentials."
+        },
+        {
+          "id": "payments-charge-possible",
+          "permission": "payments.charge",
+          "level": "critical",
+          "confidence": "medium",
+          "evidence": "Stripe secret credentials detected",
+          "explanation": "Possible payment charge/write capability inferred from Stripe secret credentials. Actual operations depend on key restrictions and server code.",
+          "recommendation": "Use restricted API keys, enable webhook verification, and limit key permissions to the minimum required."
+        },
+        {
+          "id": "network-egress-openai_api_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: OPENAI_API_KEY",
+          "explanation": "The server likely connects to OpenAI APIs (api.openai.com).",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        },
+        {
+          "id": "network-egress-stripe_secret_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: STRIPE_SECRET_KEY",
+          "explanation": "The server likely connects to Stripe APIs (api.stripe.com).",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        },
+        {
+          "id": "network-egress-walleot_api_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: WALLEOT_API_KEY",
+          "explanation": "The server likely connects to Walleot / external payment provider.",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "remote-git-source",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "explanation": "The server is installed from a remote Git repository.",
+          "recommendation": "Prefer a pinned release, package version, or commit SHA."
+        },
+        {
+          "id": "remote-git-unpinned",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "explanation": "The Git source is not pinned to a commit SHA or release tag.",
+          "recommendation": "Pin the Git dependency to a commit SHA or signed release tag."
+        },
+        {
+          "id": "uvx-remote-source",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "explanation": "The uvx package is installed from a remote Git repository.",
+          "recommendation": "Prefer a pinned release or package version."
+        },
+        {
+          "id": "remote-git-source",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "explanation": "The server is installed from a remote Git repository.",
+          "recommendation": "Prefer a pinned release, package version, or commit SHA."
+        },
+        {
+          "id": "remote-git-unpinned",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "explanation": "The Git source is not pinned to a commit SHA or release tag.",
+          "recommendation": "Pin the Git dependency to a commit SHA or signed release tag."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Use restricted API keys, enable webhook verification, and limit key permissions to the minimum required.",
+        "Confirm expected outbound domains and avoid sending sensitive data unnecessarily.",
+        "Prefer a pinned release, package version, or commit SHA.",
+        "Pin the Git dependency to a commit SHA or signed release tag.",
+        "Prefer a pinned release or package version."
+      ],
+      "saferConfigSuggestions": [
+        {
+          "id": "pin-git-dependency",
+          "title": "Pin Git dependency to commit SHA or tag",
+          "explanation": "Pin remote Git dependencies to a commit SHA or signed release tag for reproducible installs.",
+          "before": "git+https://github.com/blustAI/python-paymcp-server-demo",
+          "after": "git+https://github.com/blustAI/python-paymcp-server-demo@<commit-sha-or-tag>",
+          "confidence": "high"
+        }
+      ],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    },
+    {
+      "name": "paymcp-stripe-server",
+      "command": "python",
+      "args": [
+        "server.py"
+      ],
+      "envVars": [
+        "STRIPE_API_KEY",
+        "STRIPE_SECRET_KEY",
+        "REDIS_URL"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-stripe_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: STRIPE_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-stripe_secret_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: STRIPE_SECRET_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "database-query",
+          "permission": "database.query",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "State-store (Redis) signal detected",
+          "explanation": "Possible database or state-store read access inferred."
+        },
+        {
+          "id": "database-mutate",
+          "permission": "database.mutate",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "State-store access without read-only signal",
+          "explanation": "Possible database or state-store write access inferred; no read-only signal was found.",
+          "recommendation": "Use read-only database credentials where possible."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Stripe secret key detected in environment",
+          "explanation": "The server has access to payment data via Stripe credentials."
+        },
+        {
+          "id": "payments-charge-possible",
+          "permission": "payments.charge",
+          "level": "critical",
+          "confidence": "medium",
+          "evidence": "Stripe secret credentials detected",
+          "explanation": "Possible payment charge/write capability inferred from Stripe secret credentials. Actual operations depend on key restrictions and server code.",
+          "recommendation": "Use restricted API keys, enable webhook verification, and limit key permissions to the minimum required."
+        },
+        {
+          "id": "network-egress-stripe_api_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: STRIPE_API_KEY",
+          "explanation": "The server likely connects to Stripe APIs (api.stripe.com).",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "local-script",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "server.py",
+          "explanation": "The MCP server runs a local script. Static config analysis cannot verify the script contents.",
+          "recommendation": "Review the script contents and dependencies before enabling the server."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Use read-only database credentials where possible.",
+        "Use restricted API keys, enable webhook verification, and limit key permissions to the minimum required.",
+        "Confirm expected outbound domains and avoid sending sensitive data unnecessarily.",
+        "Review the script contents and dependencies before enabling the server."
+      ],
+      "saferConfigSuggestions": [],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    },
+    {
+      "name": "paymcp-x402",
+      "command": "uvx",
+      "args": [
+        "paymcp-x402-server"
+      ],
+      "envVars": [
+        "X402_PAY_TO_ADDRESS",
+        "OPENAI_API_KEY"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-openai_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: OPENAI_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "medium",
+          "evidence": "Payment service signal inferred from server name or configuration",
+          "explanation": "The server may access payment data."
+        },
+        {
+          "id": "payment-protocol-x402",
+          "permission": "payment_protocol.x402",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "x402 payment protocol inferred from environment variables",
+          "explanation": "The server appears to use the x402 payment protocol.",
+          "recommendation": "Review payment flow, wallet/address configuration, and user approval behavior."
+        },
+        {
+          "id": "payments-receive",
+          "permission": "payments.receive",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "Payment address environment variable detected",
+          "explanation": "The server appears configured to receive or request payments using an x402-style payment address.",
+          "recommendation": "Verify the receiving address, payment limits, and whether the server can initiate payment-gated actions."
+        },
+        {
+          "id": "network-egress-x402",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "x402 payment environment variable detected: X402_PAY_TO_ADDRESS",
+          "explanation": "The server may connect to external payment endpoints via x402 protocol.",
+          "recommendation": "Confirm expected outbound payment domains."
+        },
+        {
+          "id": "network-egress-openai_api_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: OPENAI_API_KEY",
+          "explanation": "The server likely connects to OpenAI APIs (api.openai.com).",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "uvx-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "paymcp-x402-server",
+          "explanation": "The uvx package is not pinned to a specific version.",
+          "recommendation": "Pin package versions (e.g., package==1.2.3)."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Review payment flow, wallet/address configuration, and user approval behavior.",
+        "Verify the receiving address, payment limits, and whether the server can initiate payment-gated actions.",
+        "Confirm expected outbound payment domains.",
+        "Confirm expected outbound domains and avoid sending sensitive data unnecessarily.",
+        "Pin package versions (e.g., package==1.2.3)."
+      ],
+      "saferConfigSuggestions": [],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    },
+    {
+      "name": "paymcp-subscription-demo",
+      "command": "uv",
+      "args": [
+        "run",
+        "mcp",
+        "install",
+        "server.py",
+        "--with",
+        "openai",
+        "--with",
+        "paymcp",
+        "--with",
+        "requests",
+        "--with",
+        "Pillow"
+      ],
+      "envVars": [
+        "STRIPE_SECRET_KEY",
+        "OPENAI_API_KEY"
+      ],
+      "permissions": [
+        {
+          "id": "secrets-env-stripe_secret_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: STRIPE_SECRET_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "secrets-env-openai_api_key",
+          "permission": "secrets.env",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Environment variable detected: OPENAI_API_KEY",
+          "explanation": "The server receives a secret or credential through its environment.",
+          "recommendation": "Use the least-privileged credential possible and rotate it if exposed."
+        },
+        {
+          "id": "payments-read",
+          "permission": "payments.read",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Stripe secret key detected in environment",
+          "explanation": "The server has access to payment data via Stripe credentials."
+        },
+        {
+          "id": "payments-charge-possible",
+          "permission": "payments.charge",
+          "level": "critical",
+          "confidence": "medium",
+          "evidence": "Stripe secret credentials detected",
+          "explanation": "Possible payment charge/write capability inferred from Stripe secret credentials. Actual operations depend on key restrictions and server code.",
+          "recommendation": "Use restricted API keys, enable webhook verification, and limit key permissions to the minimum required."
+        },
+        {
+          "id": "network-egress-stripe_secret_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: STRIPE_SECRET_KEY",
+          "explanation": "The server likely connects to Stripe APIs (api.stripe.com).",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        },
+        {
+          "id": "network-egress-openai_api_key",
+          "permission": "network.egress",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Environment variable detected: OPENAI_API_KEY",
+          "explanation": "The server likely connects to OpenAI APIs (api.openai.com).",
+          "recommendation": "Confirm expected outbound domains and avoid sending sensitive data unnecessarily."
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "uv-with-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "--with openai",
+          "explanation": "A runtime dependency is installed without a fixed version.",
+          "recommendation": "Pin runtime dependencies, for example: --with openai==<version>"
+        },
+        {
+          "id": "uv-with-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "--with paymcp",
+          "explanation": "A runtime dependency is installed without a fixed version.",
+          "recommendation": "Pin runtime dependencies, for example: --with paymcp==<version>"
+        },
+        {
+          "id": "uv-with-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "--with requests",
+          "explanation": "A runtime dependency is installed without a fixed version.",
+          "recommendation": "Pin runtime dependencies, for example: --with requests==<version>"
+        },
+        {
+          "id": "uv-with-unpinned",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "--with Pillow",
+          "explanation": "A runtime dependency is installed without a fixed version.",
+          "recommendation": "Pin runtime dependencies, for example: --with Pillow==<version>"
+        },
+        {
+          "id": "local-script",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "server.py",
+          "explanation": "The MCP server runs a local script. Static config analysis cannot verify the script contents.",
+          "recommendation": "Review the script contents and dependencies before enabling the server."
+        }
+      ],
+      "recommendations": [
+        "Use the least-privileged credential possible and rotate it if exposed.",
+        "Use restricted API keys, enable webhook verification, and limit key permissions to the minimum required.",
+        "Confirm expected outbound domains and avoid sending sensitive data unnecessarily.",
+        "Pin runtime dependencies, for example: --with openai==<version>",
+        "Pin runtime dependencies, for example: --with paymcp==<version>",
+        "Pin runtime dependencies, for example: --with requests==<version>",
+        "Pin runtime dependencies, for example: --with Pillow==<version>",
+        "Review the script contents and dependencies before enabling the server."
+      ],
+      "saferConfigSuggestions": [],
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "mcpServers": {
+    "paymcp-demo": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "git+https://github.com/blustAI/python-paymcp-server-demo",
+        "server"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "sk-EXAMPLE_DO_NOT_USE",
+        "STRIPE_SECRET_KEY": "sk_live_EXAMPLE_DO_NOT_USE",
+        "WALLEOT_API_KEY": "wlt_EXAMPLE_DO_NOT_USE"
+      }
+    },
+    "paymcp-stripe-server": {
+      "command": "python",
+      "args": [
+        "server.py"
+      ],
+      "env": {
+        "STRIPE_API_KEY": "sk_live_EXAMPLE_DO_NOT_USE",
+        "STRIPE_SECRET_KEY": "sk_live_EXAMPLE_DO_NOT_USE",
+        "REDIS_URL": "redis://localhost:6379"
+      }
+    },
+    "paymcp-x402": {
+      "command": "uvx",
+      "args": [
+        "paymcp-x402-server"
+      ],
+      "env": {
+        "X402_PAY_TO_ADDRESS": "0xExampleAddress",
+        "OPENAI_API_KEY": "sk-EXAMPLE_DO_NOT_USE"
+      }
+    },
+    "paymcp-subscription-demo": {
+      "command": "uv",
+      "args": [
+        "run",
+        "mcp",
+        "install",
+        "server.py",
+        "--with",
+        "openai",
+        "--with",
+        "paymcp",
+        "--with",
+        "requests",
+        "--with",
+        "Pillow"
+      ],
+      "env": {
+        "STRIPE_SECRET_KEY": "sk_live_EXAMPLE_DO_NOT_USE",
+        "OPENAI_API_KEY": "sk-EXAMPLE_DO_NOT_USE"
+      }
+    }
+  }
+}
+

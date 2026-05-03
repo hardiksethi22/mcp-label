@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="246" viewBox="0 0 400 246">
+  <defs>
+    <style>
+      .title { font: bold 16px system-ui, -apple-system, sans-serif; fill: #1f2937; }
+      .label { font: 12px system-ui, -apple-system, sans-serif; fill: #6b7280; }
+      .value { font: bold 14px system-ui, -apple-system, sans-serif; }
+      .grade { font: bold 32px system-ui, -apple-system, sans-serif; }
+      .concern { font: 12px monospace; fill: #374151; }
+      .footer { font: 10px system-ui, -apple-system, sans-serif; fill: #9ca3af; }
+    </style>
+  </defs>
+  <rect width="400" height="246" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Header -->
+  <text x="20" y="32" class="title">MCP Safety Label</text>
+  
+  <!-- Grade circle -->
+  <circle cx="52" cy="80" r="30" fill="#dc2626" opacity="0.1"/>
+  <text x="52" y="92" class="grade" fill="#dc2626" text-anchor="middle">F</text>
+  
+  <!-- Risk + Server count -->
+  <text x="100" y="66" class="label">Risk</text>
+  <text x="100" y="84" class="value" fill="#dc2626">Critical</text>
+  
+  <text x="200" y="66" class="label">Servers</text>
+  <text x="200" y="84" class="value" fill="#1f2937">4</text>
+  
+  <text x="280" y="66" class="label">Findings</text>
+  <text x="280" y="84" class="value" fill="#1f2937">39</text>
+  
+  <!-- Divider -->
+  <line x1="20" y1="115" x2="380" y2="115" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Top concerns -->
+  <text x="20" y="135" class="label">Top Concerns</text>
+  <text x="20" y="155" class="concern">payments.charge x3</text>
+  <text x="20" y="177" class="concern">secrets.env x8</text>
+  <text x="20" y="199" class="concern">payments.read x4</text>
+  
+  <!-- Footer -->
+  <text x="20" y="234" class="footer">Generated May 3, 2026 · mcp-label · static analysis only</text>
+</svg>

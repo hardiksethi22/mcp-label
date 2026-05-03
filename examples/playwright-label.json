@@ -1,0 +1,172 @@
+{
+  "schemaVersion": "0.2",
+  "generatedAt": "2026-05-03T06:43:17.864Z",
+  "source": {
+    "configPaths": [
+      "examples/playwright.mcp.json"
+    ],
+    "discovered": false,
+    "staticOnly": true
+  },
+  "summary": {
+    "serverCount": 1,
+    "capabilityImpact": "critical",
+    "effectiveRisk": "high",
+    "hardeningGrade": "C",
+    "publisherTrust": "high",
+    "installHygiene": "C",
+    "configHardening": "C",
+    "analysisConfidence": "high",
+    "totalFindings": 6,
+    "topConcerns": [
+      "code.execution",
+      "browser.control",
+      "network.fetch",
+      "browser.session_persistence",
+      "filesystem.read_possible"
+    ],
+    "topMitigations": [
+      "Pin package version",
+      "Use isolated browser mode",
+      "Restrict browser origins"
+    ],
+    "overallGrade": "F",
+    "overallRisk": "critical",
+    "highestRisk": "critical"
+  },
+  "servers": [
+    {
+      "name": "playwright",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "packageName": "@playwright/mcp@latest",
+      "envVars": [],
+      "capabilityImpact": "critical",
+      "effectiveRisk": "high",
+      "hardeningGrade": "C",
+      "publisherTrust": "high",
+      "installHygiene": "C",
+      "configHardening": "C",
+      "analysisConfidence": "high",
+      "knownServerProfile": "known.playwright-mcp",
+      "permissions": [
+        {
+          "id": "playwright-browser-control",
+          "permission": "browser.control",
+          "level": "high",
+          "confidence": "high",
+          "evidence": "Known Playwright MCP package detected: @playwright/mcp",
+          "explanation": "Playwright MCP gives the model browser automation capabilities such as navigation, clicking, typing, form filling, screenshots, and tab interactions.",
+          "recommendation": "Use an isolated browser profile and avoid sensitive logged-in sessions.",
+          "expectation": "expected"
+        },
+        {
+          "id": "playwright-network-fetch",
+          "permission": "network.fetch",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "Playwright browser automation can navigate to URLs and make browser network requests.",
+          "explanation": "The server can access network resources through browser navigation and page interactions.",
+          "recommendation": "Use --allowed-origins or --blocked-origins to constrain browser network access.",
+          "expectation": "expected"
+        },
+        {
+          "id": "playwright-run-code-unsafe",
+          "permission": "code.execution",
+          "level": "critical",
+          "confidence": "high",
+          "evidence": "Documented Playwright MCP tool: browser_run_code_unsafe",
+          "explanation": "Playwright MCP documents an unsafe tool (browser_run_code_unsafe) that can run Playwright code in the server process. This is a well-known, Microsoft-maintained package; the tool exists for advanced use cases but should be treated as RCE-equivalent unless disabled by policy or client-side tool allowlisting.",
+          "recommendation": "Require explicit approval for this tool, disable it via client tool allowlists, or avoid enabling it in sensitive environments.",
+          "expectation": "expected"
+        },
+        {
+          "id": "playwright-session-persistence",
+          "permission": "browser.session_persistence",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "No --isolated option found in Playwright MCP configuration.",
+          "explanation": "The browser profile may persist cookies, local storage, and login state between sessions unless isolated mode is used.",
+          "recommendation": "Add --isolated unless persistent login state is intentionally required.",
+          "expectation": "expected"
+        },
+        {
+          "id": "playwright-file-upload-paths",
+          "permission": "filesystem.read_possible",
+          "level": "medium",
+          "confidence": "medium",
+          "evidence": "Playwright MCP supports browser file upload/drop style interactions.",
+          "explanation": "Some browser file interactions can reference local file paths. This is not the same as unrestricted filesystem access.",
+          "recommendation": "Avoid exposing sensitive files through upload/drop tools and review any configured file access flags.",
+          "expectation": "expected"
+        }
+      ],
+      "installRisks": [
+        {
+          "id": "npx-latest",
+          "level": "medium",
+          "confidence": "high",
+          "evidence": "@playwright/mcp@latest",
+          "explanation": "The npx package uses @latest, which can change over time.",
+          "recommendation": "Pin the package to a specific version, for example @playwright/mcp@<version>."
+        }
+      ],
+      "recommendations": [
+        "Use an isolated browser profile and avoid sensitive logged-in sessions.",
+        "Use --allowed-origins or --blocked-origins to constrain browser network access.",
+        "Require explicit approval for this tool, disable it via client tool allowlists, or avoid enabling it in sensitive environments.",
+        "Add --isolated unless persistent login state is intentionally required.",
+        "Avoid exposing sensitive files through upload/drop tools and review any configured file access flags.",
+        "Pin the package to a specific version, for example @playwright/mcp@<version>."
+      ],
+      "saferConfigSuggestions": [
+        {
+          "id": "pin-npx-package",
+          "title": "Pin package version",
+          "explanation": "Pin the npx package to a specific version for reproducible installs.",
+          "before": "@playwright/mcp@latest",
+          "after": "@playwright/mcp@<specific-version>",
+          "confidence": "high"
+        },
+        {
+          "id": "playwright-add-isolated",
+          "title": "Use isolated browser mode",
+          "explanation": "Add --isolated to prevent browser state (cookies, login sessions, local storage) from persisting between runs.",
+          "after": "npx @playwright/mcp@<version> --isolated",
+          "confidence": "high"
+        },
+        {
+          "id": "playwright-add-origin-controls",
+          "title": "Restrict browser origins",
+          "explanation": "Configure --allowed-origins or --blocked-origins to limit which sites the browser can navigate to.",
+          "after": "npx @playwright/mcp@<version> --allowed-origins https://example.com",
+          "confidence": "medium"
+        }
+      ],
+      "scoringTrace": {
+        "adjustments": [
+          {
+            "dimension": "capabilityImpact",
+            "reason": "Critical capabilities detected: code.execution",
+            "evidence": "Documented Playwright MCP tool: browser_run_code_unsafe"
+          },
+          {
+            "dimension": "publisherTrust",
+            "reason": "Known server profile matched: Microsoft Playwright MCP (Microsoft)",
+            "evidence": "Official Microsoft Playwright MCP package/repository match."
+          },
+          {
+            "dimension": "installHygiene",
+            "reason": "Install risks found: npx-latest"
+          }
+        ],
+        "explanation": "Capability impact is **critical** because the server has critical-impact capabilities (browser.control, network.fetch, code.execution). Publisher trust is **high** because the package matches a known Microsoft profile. Install hygiene is **C** because the npx package uses @latest, which can change over time.. Config hardening is **C**. Effective risk is **high**."
+      },
+      "score": 0,
+      "grade": "F",
+      "risk": "critical"
+    }
+  ]
+}

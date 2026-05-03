@@ -1,0 +1,36 @@
+version: "0.1"
+rules:
+  - id: no-shell-exec
+    description: Block MCP servers that can execute shell commands.
+    deny:
+      permissions:
+        - shell.execute
+
+  - id: no-broad-filesystem
+    description: Block broad filesystem access to root or home directories.
+    deny:
+      permissions:
+        - filesystem.read
+      evidenceIncludes:
+        - "/"
+        - "$HOME"
+        - "~"
+
+  - id: docker-must-be-pinned
+    description: Docker images must be pinned to explicit versions or digests.
+    require:
+      install:
+        dockerPinned: true
+
+  - id: packages-must-be-pinned
+    description: Packages must be pinned to a specific version.
+    require:
+      install:
+        packagePinned: true
+
+  - id: no-privileged-docker
+    description: Docker containers must not run in privileged mode.
+    deny:
+      permissions:
+        - shell.execute
+

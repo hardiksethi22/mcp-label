@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="286" viewBox="0 0 420 286">
+  <defs>
+    <style>
+      .title { font: bold 16px system-ui, -apple-system, sans-serif; fill: #1f2937; }
+      .label { font: 12px system-ui, -apple-system, sans-serif; fill: #6b7280; }
+      .value { font: bold 13px system-ui, -apple-system, sans-serif; }
+      .grade { font: bold 28px system-ui, -apple-system, sans-serif; }
+      .concern { font: 12px monospace; fill: #374151; }
+      .footer { font: 10px system-ui, -apple-system, sans-serif; fill: #9ca3af; }
+    </style>
+  </defs>
+  <rect width="420" height="286" rx="8" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Header -->
+  <text x="20" y="30" class="title">MCP Safety Label</text>
+  
+  <!-- Hardening grade circle -->
+  <circle cx="48" cy="72" r="26" fill="#ca8a04" opacity="0.1"/>
+  <text x="48" y="82" class="grade" fill="#ca8a04" text-anchor="middle">C</text>
+  
+  <!-- Dimensions -->
+  <text x="90" y="56" class="label">Capability</text>
+  <text x="90" y="72" class="value" fill="#dc2626">Critical</text>
+  
+  <text x="170" y="56" class="label">Risk</text>
+  <text x="170" y="72" class="value" fill="#ea580c">High</text>
+  
+  <text x="240" y="56" class="label">Trust</text>
+  <text x="240" y="72" class="value" fill="#16a34a">High</text>
+  
+  <text x="320" y="56" class="label">Hygiene</text>
+  <text x="320" y="72" class="value" fill="#ca8a04">C</text>
+
+  <!-- Stats row -->
+  <text x="90" y="98" class="label">Servers: 1</text>
+  <text x="170" y="98" class="label">Findings: 6</text>
+  
+  <!-- Divider -->
+  <line x1="20" y1="115" x2="400" y2="115" stroke="#e5e7eb" stroke-width="1"/>
+  
+  <!-- Top concerns -->
+  <text x="20" y="135" class="label">Top Concerns</text>
+  <text x="20" y="155" class="concern">code.execution</text>
+  <text x="20" y="177" class="concern">browser.control</text>
+  <text x="20" y="199" class="concern">network.fetch</text>
+  
+  <!-- Mitigations -->
+  
+  <line x1="20" y1="226" x2="400" y2="226" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="20" y="243" class="label">Top Mitigations</text>
+  <text x="20" y="261" class="concern">Pin package version</text>
+  <text x="20" y="279" class="concern">Use isolated browser mode</text>
+  
+  <!-- Footer -->
+  <text x="20" y="276" class="footer">Generated May 3, 2026 · mcp-label · static analysis only</text>
+</svg>

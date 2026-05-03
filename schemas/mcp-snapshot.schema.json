@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCP Runtime Snapshot",
+  "description": "Runtime inspection snapshot for an MCP server.",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "server", "tools", "resources", "prompts", "capabilities", "hashes"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "0.1" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "server": { "type": "string" },
+    "tools": { "type": "array" },
+    "resources": { "type": "array" },
+    "prompts": { "type": "array" },
+    "capabilities": { "type": "object" },
+    "hashes": {
+      "type": "object",
+      "required": ["toolsHash", "resourcesHash", "promptsHash"],
+      "properties": {
+        "toolsHash": { "type": "string" },
+        "resourcesHash": { "type": "string" },
+        "promptsHash": { "type": "string" }
+      }
+    }
+  }
+}
+

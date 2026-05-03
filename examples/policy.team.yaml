@@ -1,0 +1,14 @@
+version: "0.1"
+rules:
+  - id: no-shell-exec
+    description: Block MCP servers that can execute shell commands.
+    deny:
+      permissions:
+        - shell.execute
+
+  - id: docker-must-be-pinned
+    description: Docker images must be pinned.
+    require:
+      install:
+        dockerPinned: true
+

@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MCP Label Report",
+  "description": "Safety label report for MCP server configurations.",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "source", "summary", "servers"],
+  "properties": {
+    "schemaVersion": { "type": "string", "const": "0.1" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "source": {
+      "type": "object",
+      "required": ["configPaths", "discovered", "staticOnly"],
+      "properties": {
+        "configPaths": { "type": "array", "items": { "type": "string" } },
+        "discovered": { "type": "boolean" },
+        "staticOnly": { "type": "boolean" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["serverCount", "overallGrade", "overallRisk", "highestRisk", "totalFindings", "topConcerns"],
+      "properties": {
+        "serverCount": { "type": "integer" },
+        "overallGrade": { "type": "string", "enum": ["A", "B", "C", "D", "F"] },
+        "overallRisk": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "highestRisk": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+        "totalFindings": { "type": "integer" },
+        "topConcerns": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "servers": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/ServerLabel" }
+    }
+  },
+  "definitions": {
+    "ServerLabel": {
+      "type": "object",
+      "required": ["name", "args", "envVars", "permissions", "installRisks", "recommendations", "saferConfigSuggestions", "score", "grade", "risk"],
+      "properties": {
+        "name": { "type": "string" },
+        "command": { "type": "string" },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "packageName": { "type": "string" },
+        "dockerImage": { "type": "string" },
+        "envVars": { "type": "array", "items": { "type": "string" } },
+        "permissions": { "type": "array", "items": { "$ref": "#/definitions/PermissionFinding" } },
+        "installRisks": { "type": "array", "items": { "$ref": "#/definitions/InstallRisk" } },
+        "policyResults": { "type": "array", "items": { "$ref": "#/definitions/PolicyResult" } },
+        "recommendations": { "type": "array", "items": { "type": "string" } },
+        "saferConfigSuggestions": { "type": "array", "items": { "$ref": "#/definitions/SaferConfigSuggestion" } },
+        "score": { "type": "number" },
+        "grade": { "type": "string", "enum": ["A", "B", "C", "D", "F"] },
+        "risk": { "type": "string", "enum": ["low", "medium", "high", "critical"] }
+      }
+    },
+    "PermissionFinding": {
+      "type": "object",
+      "required": ["id", "permission", "level", "confidence", "evidence", "explanation"],
+      "properties": {
+        "id": { "type": "string" },
+        "permission": { "type": "string" },
+        "level": { "type": "string", "enum": ["info", "low", "medium", "high", "critical"] },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "evidence": { "type": "string" },
+        "explanation": { "type": "string" },
+        "recommendation": { "type": "string" }
+      }
+    },
+    "InstallRisk": {
+      "type": "object",
+      "required": ["id", "level", "confidence", "evidence", "explanation", "recommendation"],
+      "properties": {
+        "id": { "type": "string" },
+        "level": { "type": "string", "enum": ["info", "low", "medium", "high", "critical"] },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] },
+        "evidence": { "type": "string" },
+        "explanation": { "type": "string" },
+        "recommendation": { "type": "string" }
+      }
+    },
+    "PolicyResult": {
+      "type": "object",
+      "required": ["ruleId", "description", "passed", "server", "details"],
+      "properties": {
+        "ruleId": { "type": "string" },
+        "description": { "type": "string" },
+        "passed": { "type": "boolean" },
+        "server": { "type": "string" },
+        "details": { "type": "string" }
+      }
+    },
+    "SaferConfigSuggestion": {
+      "type": "object",
+      "required": ["id", "title", "explanation", "confidence"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "explanation": { "type": "string" },
+        "before": { "type": "string" },
+        "after": { "type": "string" },
+        "confidence": { "type": "string", "enum": ["low", "medium", "high"] }
+      }
+    }
+  }
+}
+
