@@ -1,6 +1,6 @@
 {
   "name": "@mcp-label/vscode-extension",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "VS Code extension for mcp-label (future)",
   "private": true,
   "scripts": {

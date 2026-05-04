@@ -88,9 +88,12 @@ export function exportSvg(report: McpLabelReport): string {
   });
 
   // Calculate height based on content
-  const baseHeight = 220;
+  const mitigationCount = Math.min(report.summary.topMitigations?.length ?? 0, 2);
+  const baseHeight = 160;
   const concernHeight = topConcerns.length * 22;
-  const height = baseHeight + concernHeight;
+  const mitigationHeight = mitigationCount > 0 ? mitigationCount * 18 + 40 : 0;
+  const footerPadding = 30;
+  const height = baseHeight + concernHeight + mitigationHeight + footerPadding;
 
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
   <defs>
